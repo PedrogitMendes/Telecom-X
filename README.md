@@ -1,89 +1,139 @@
-# 📊 Telecom X - Análise de Evasão de Clientes (Churn)
+# 📊 Telecom X — Análise de Evasão de Clientes (Churn)
 
-Este projeto faz parte do **Challenge do programa Oracle Next Education (ONE)** em parceria com a **Alura**.  
-O objetivo é analisar os dados da empresa fictícia **Telecom X**, identificando os principais fatores que influenciam a **evasão de clientes (churn)** e propor recomendações estratégicas para reduzir a saída de clientes.
+Projeto desenvolvido no **Challenge de Especialização (Oracle Next Education / Alura)** para analisar a **evasão de clientes (Churn)** na empresa fictícia **Telecom X**.
 
----
-
-## 🚀 Objetivo do Projeto
-- Importar e tratar dados de clientes da Telecom X.
-- Explorar e analisar variáveis que impactam a evasão.
-- Identificar padrões e gerar insights sobre o comportamento dos clientes.
-- Fornecer recomendações que auxiliem na **retenção de clientes**.
+O trabalho cobre **Extração** dos dados via API, **Transformação** (limpeza/padronização/criação de feature) e **Análise Exploratória** com visualizações e **Relatório Final** com insights e recomendações. Este README contém: propósito, estrutura, **instalação e dependências**, **como executar** e **possíveis problemas/soluções**.
 
 ---
 
-## 🛠️ Estrutura do Projeto
-- **`TelecomX_BR.ipynb`** → Notebook principal contendo todo o processo:
-  - Extração e carregamento dos dados da API.
-  - Limpeza e tratamento dos dados.
-  - Criação de colunas derivadas (ex: `Contas_Diarias`).
-  - Análise exploratória com tabelas e gráficos.
-  - Relatório final com conclusões e recomendações.
+## 🎯 Objetivos do Projeto
 
-- **Dados** → Os dados utilizados estão disponíveis via API (JSON) no repositório original fornecido pelo desafio.
+* Carregar os dados diretamente de uma **API (JSON)** e convertê-los em **Pandas DataFrame**.
+* Tratar e padronizar os dados (tipos, valores ausentes, categorias inconsistentes).
+* Criar a coluna derivada **`Contas_Diarias`** a partir do faturamento mensal.
+* Explorar a distribuição de **Churn** e sua relação com variáveis **categóricas** e **numéricas**.
+* Elaborar um **relatório** (no próprio notebook) com conclusões e recomendações acionáveis.
 
 ---
 
-## 📥 Como Executar o Projeto
+## 🗂️ Estrutura do Repositório
 
-### 1. Clonar o repositório
+* **`TelecomX_BR.ipynb`** — Notebook principal contendo:
+
+  * **E — Extract**: consumo da API com `requests` e conversão para DataFrame.
+  * **T — Transform**: limpeza/padronização (`Total` → `TotalCharges`, conversão numérica com `pd.to_numeric(..., errors="coerce")`, `fillna(0)`, padronização de categorias como `'No internet service'`/`'No phone service'` → `'No'`, ajuste de `'Churn'` vazio → `'No'`), criação de **`Contas_Diarias`**.
+  * **L — Load & Analysis**: estatísticas descritivas, distribuição de **Churn**, análises por variáveis **categóricas** e **numéricas** com gráficos (barras, pizza, boxplots e histogramas).
+  * **Relatório Final**: introdução, descrição das etapas, análises com visualizações, **conclusões** e **recomendações**.
+* **`README.md`** — Este documento.
+
+> ℹ️ Os dados são carregados **dinamicamente** via API durante a execução; o JSON não precisa estar versionado no repositório.
+
+
+---
+
+## ⚙️ Ambiente e Dependências
+
+* **Python 3** — desenvolvido e testado no **Google Colab** (Python **3.10** no momento da execução); compatível com **Python 3.8 ou superior**.
+* Bibliotecas utilizadas:
+
+  * `pandas` — manipulação de dados
+  * `matplotlib` — gráficos
+  * `seaborn` — visualizações estatísticas
+  * `requests` — consumo da API
+
+Instalação rápida (ambiente local):
+
 ```bash
-git clone https://github.com/PedrogitMendes/Telecom-X.git
-2. Acessar a pasta do projeto
-bash
-Copiar
-Editar
-cd Telecom-X
-3. Abrir o Notebook
-Você pode abrir o notebook de duas formas:
+pip install pandas matplotlib seaborn requests
+```
 
-No Google Colab (recomendado).
+---
 
-Ou localmente no Jupyter Notebook.
+## ▶️ Como Executar
 
-No Colab:
+### Opção A — Google Colab (recomendado)
 
-Acesse Google Colab.
+1. Acesse o **Google Colab**.
+2. **Arquivo → Fazer upload do notebook** e selecione `TelecomX_BR.ipynb`.
+3. Clique em **Executar tudo**.
+4. Ao final, para garantir a visualização dos gráficos no GitHub, use **Arquivo → Fazer download → Download .ipynb** (salva o notebook **com as saídas**).
 
-Vá em Arquivo > Fazer upload do notebook.
+### Opção B — Ambiente Local (Jupyter Notebook)
 
-Selecione o arquivo TelecomX_BR.ipynb.
+1. Clone o repositório:
 
-📦 Dependências
-O notebook utiliza principalmente as seguintes bibliotecas Python:
+   ```bash
+   git clone https://github.com/PedrogitMendes/Telecom-X.git
+   cd Telecom-X
+   ```
+2. Crie (opcional) um ambiente virtual e instale as dependências:
 
-pandas
+   ```bash
+   pip install pandas matplotlib seaborn requests
+   ```
+3. Abra o Jupyter Notebook e execute `TelecomX_BR.ipynb` **em ordem**.
 
-numpy
+---
 
-matplotlib
+## 🔎 O que o Notebook Faz (Mapeado ao Trello)
 
-seaborn
+**E — Extract**
 
-requests
+* ✅ Carrega os dados diretamente da **API** usando `requests`.
+* ✅ Converte o JSON para **DataFrame do Pandas**.
 
-Se for rodar localmente, instale com:
+**T — Transform**
 
-bash
-Copiar
-Editar
-pip install pandas numpy matplotlib seaborn requests
-📊 Resultados e Insights
-A análise identificou:
+* ✅ Explora as colunas e verifica tipos (`df.info()`/`dtypes`).
+* ✅ Consulta o dicionário de dados (linkado e carregado no notebook para referência).
+* ✅ Identifica e trata problemas: nulos, duplicados, formatações e categorias inconsistentes.
+* ✅ Aplica correções (conversões, padronização de categorias e alvo `Churn`).
+* ✅ Cria a coluna **`Contas_Diarias`** a partir de `Monthly/30`.
+* 🟨 Padronização opcional (binarização 0/1) — **não obrigatória**; o notebook prioriza padronização textual clara.
 
-Perfil dos clientes mais propensos ao churn.
+**L — Load & Analysis**
 
-Impacto do tipo de contrato e método de pagamento.
+* ✅ Estatísticas descritivas (média, mediana, desvio padrão etc.).
+* ✅ Distribuição de **Churn** (gráfico de barras e pizza).
+* ✅ Evasão por variáveis **categóricas** (gênero, contrato, pagamento, serviços etc.).
+* ✅ Evasão por variáveis **numéricas** (`tenure`, `Monthly`, `TotalCharges`, `Contas_Diarias`) — boxplots e histogramas.
+* ✅ **Relatório Final** no próprio notebook: Introdução, Limpeza/Tratamento, EDA, Conclusões/Insights e Recomendações.
 
-Diferenças no faturamento entre clientes ativos e evadidos.
+---
 
-Recomendações estratégicas para redução da evasão.
+## 📊 Principais Insights (resumo)
 
-⚠️ Possíveis Problemas
-Caso execute fora do Colab, verifique se as bibliotecas listadas estão instaladas.
+* **Contrato mês a mês** apresenta maior propensão ao churn em comparação a contratos anuais.
+* Ausência de **serviços adicionais** (ex.: segurança online, suporte técnico) está associada a maior churn.
+* **Electronic check** tende a ter maior churn que outros métodos de pagamento.
+* **Tenure** menor (primeiros meses) concentra a maior parte das evasões.
+* Custos **mensais** e **totais** mais altos correlacionam-se com maior churn em alguns segmentos.
 
-A conexão com a API depende de internet ativa. Se houver erro, baixe o JSON manualmente do repositório original do desafio.
+> Todos os pontos acima são sustentados por visualizações no relatório final do notebook.
 
-✨ Autor
-Desenvolvido por Pedro Mendes no âmbito do programa Oracle Next Education - Alura.
+---
+
+## 🧩 Reprodutibilidade
+
+* Desenvolvido no **Google Colab** (Python 3.10). Compatível com **Python 3.8+**.
+* Execute o notebook **em ordem** e salve **com as saídas** para visualização completa no GitHub.
+
+---
+
+## 🛠️ Problemas Comuns & Soluções
+
+* **Gráficos não aparecem no GitHub**
+  Execute todas as células e baixe o `.ipynb` **com as saídas** (Colab: *Arquivo → Download .ipynb*). Os blocos finais do relatório já usam `plt.show()` para embutir as figuras.
+* **Erro ao acessar a API**
+  Verifique a conexão com a internet e a disponibilidade do repositório-base. Em caso de indisponibilidade temporária, tente novamente mais tarde.
+* **Biblioteca ausente**
+  Instale com: `pip install pandas matplotlib seaborn requests`.
+* **Resultados levemente diferentes**
+  Diferenças de versões de bibliotecas e ambiente podem alterar estilos de gráficos. Recomenda-se **Python 3.8+** e reexecução completa.
+
+
+---
+
+## ✍️ Autor
+
+**Pedro de Carvalho Mendes** — participante do **Oracle Next Education (ONE)** em parceria com a **Alura**.
