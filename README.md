@@ -136,4 +136,4 @@ pip install pandas matplotlib seaborn requests
 
 ## ✍️ Autor
 
-**Pedro de Carvalho Mendes** — participante do **Oracle Next Education (ONE)** em parceria com a **Alura**.
+**Pedro de Carvalho Mendes** — participante do **Oracle Next Education (ONE)**.
